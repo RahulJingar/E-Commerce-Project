@@ -39,13 +39,74 @@ exports.login = async (req, res) => {
   }else{
      return res.status(202).send({ message: "user login successfully" });
   }
-
-  // const isMatch = await bcrypt.compare(password, existUser.password);
-  // console.log(`>>>isMatch>>>`, isMatch);
-
-  // if (!isMatch) {
-  //   return res.status(400).send({ message: "invalid user" });
-  // } else {
-  //   return res.status(202).send({ message: "user login successfully" });
-  // }
 };
+
+
+exports.reset=async(req,res)=>{
+  const {email,oldPassword,newPassword}=req.body;
+  if(!(email&&oldPassword&&newPassword)){
+    return res.status(400).send({message: "all input field are required"})
+}
+
+const existUser=await user.findOne({email});
+if(!existUser){
+  return res.status(400).send({message: "invalid user"})
+}
+
+const dbPassword=existUser.password;
+
+const userNewPassword=await bcrypt.compare(oldPassword,dbPassword);
+
+if(!userNewPassword){
+  return res.status(400).send({message: "invalid password"})
+}
+  const salt=bcrypt.genSaltSync(10);
+  const hash=bcrypt.hashSync(newPassword,salt);
+
+const data={
+  password: hash
+}
+
+
+const id=existUser._id;
+const result=await user.findOneAndUpdate(id,data);
+
+if(result){
+  return res.status(200).send({message: "reset successfully",
+    data: result
+  })
+}
+
+}
+
+
+
+exports.forget=async(req,res)=>{
+  const {email,newPassword}=req.body;
+  if(!(email&&newPassword)){
+    return res.status(400).send({message: "all input field are required"});
+  }
+
+  const existUser=await user.findOne({email});
+  if(!existUser){
+    return res.status(400).send({message: "invalid user"});
+  }
+
+  const salt=bcrypt.genSaltSync(10);
+  const hash=bcrypt.hashSync(newPassword,salt);
+
+  const data={
+    password: hash
+  }
+
+  const id=existUser._id;
+
+  const result=await user.findOneAndUpdate(id,data);
+
+  if(result){
+    return res.status(200).send({message: "forget successfully",
+      data: result
+    })
+  }
+
+}

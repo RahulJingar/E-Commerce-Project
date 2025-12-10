@@ -1,6 +1,7 @@
 // src/pages/OrderSuccess.jsx
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const OrderSuccess = () => {
   const location = useLocation();
@@ -8,7 +9,9 @@ const OrderSuccess = () => {
   const { amount, itemsCount } = location.state || {};
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div>
+    <Navbar/>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="bg-white shadow-md rounded-2xl p-8 max-w-md text-center">
         <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
           <span className="text-3xl">✅</span>
@@ -31,6 +34,7 @@ const OrderSuccess = () => {
         </button>
       </div>
     </div>
+  </div>
   );
 };
 

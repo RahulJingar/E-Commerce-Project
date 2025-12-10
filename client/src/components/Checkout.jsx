@@ -1,4 +1,3 @@
-// src/pages/Checkout.jsx
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import {
   clearCart,
 } from "../features/cartSlice";
 import { addOrder } from "../features/ordersSlice";
+import Navbar from "./Navbar";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -27,12 +27,7 @@ const Checkout = () => {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    if (
-      !address.fullName.trim() ||
-      !address.phone.trim() ||
-      !address.pincode.trim() ||
-      !address.line1.trim()
-    ) {
+    if (!(address.fullName && address.phone && address.pincode && address.line1)) {
       alert("Please fill address details.");
       return;
     }
@@ -46,7 +41,6 @@ const Checkout = () => {
     setPlacing(true);
 
     setTimeout(() => {
-      // 1) order ko ordersSlice me save karo
       dispatch(
         addOrder({
           items: cartItems,
@@ -56,36 +50,20 @@ const Checkout = () => {
         })
       );
 
-      // 2) cart clear
       dispatch(clearCart());
 
       setPlacing(false);
 
-      // 3) orders page pe le jao jahan user dekh sake kitne orders hain
       navigate("/orders");
     }, 800);
   };
 
-  if (!cartItems || cartItems.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white shadow-md rounded-xl p-8 text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-3">Your cart is empty</h2>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all"
-          >
-            Go to Home →
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+ <div>
+  <Navbar/>
+     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-3 gap-8">
-        {/* Left: Address + Payment */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-bold mb-4">Delivery Address</h2>
@@ -166,7 +144,6 @@ const Checkout = () => {
           </div>
         </div>
 
-        {/* Right: Summary */}
         <div className="lg:col-span-1">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-lg font-bold mb-4">Order Summary</h2>
@@ -201,6 +178,7 @@ const Checkout = () => {
         </div>
       </div>
     </div>
+ </div>
   );
 };
 

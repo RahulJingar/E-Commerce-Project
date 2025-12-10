@@ -1,4 +1,3 @@
-// src/components/Dashboard.jsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +7,7 @@ import {
   addToCart,
   selectSelectedProduct,
 } from "../features/cartSlice";
+import Navbar from "./Navbar";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -23,9 +23,9 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const filtered = items.filter((prod) =>
-      prod.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filtered = items.filter((prod) => {
+      return prod.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
     setFilteredItems(filtered);
   }, [items, searchTerm]);
 
@@ -34,32 +34,19 @@ const Dashboard = () => {
     navigate(`/dashboard/${index}`);
   };
 
-
-
   return (
-    <div className="p-8 max-w-7xl mx-auto bg-gray-50 min-h-screen">
+
+ <div>
+  <Navbar/>
+     <div className="p-8 max-w-7xl mx-auto bg-gray-50 min-h-screen">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
           Products
         </h1>
-      
       </div>
 
       <div className="mb-8">
         <div className="relative max-w-md mx-auto">
-          <svg
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
           <input
             type="text"
             placeholder="Search products..."
@@ -92,6 +79,7 @@ const Dashboard = () => {
         ))}
       </div>
     </div>
+ </div>
   );
 };
 

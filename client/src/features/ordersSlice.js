@@ -1,10 +1,9 @@
-// src/features/ordersSlice.js
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const ordersSlice = createSlice({
   name: "orders",
   initialState: {
-    list: [], // saare orders
+    list: [], 
   },
   reducers: {
     addOrder: {
@@ -13,13 +12,13 @@ const ordersSlice = createSlice({
       },
       prepare: ({ items, amount, address, paymentMethod }) => ({
         payload: {
-          id: nanoid(),                // order id
-          items,                       // cart items ka snapshot
-          amount,                      // total amount
-          address,                     // delivery address
-          paymentMethod,               // cod / upi / card
-          status: "PLACED",           // PLACED | SHIPPED | DELIVERED | CANCELLED
-          createdAt: new Date().toISOString(),
+          id: nanoid(),                
+          items,                      
+          amount,                      
+          address,                     
+          paymentMethod,               
+          status: "PLACED",          
+          createdAt: new Date().toLocaleDateString(),
         },
       }),
     },

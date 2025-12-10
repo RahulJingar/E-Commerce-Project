@@ -1,12 +1,8 @@
-// src/pages/Cart.jsx
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  removeFromCart,
-  updateCartQuantity,
-  selectCartItems,
-} from "../features/cartSlice";
+import { removeFromCart, updateCartQuantity, selectCartItems } from "../features/cartSlice";
+import Navbar from "./Navbar";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -29,29 +25,12 @@ const Cart = () => {
     dispatch(removeFromCart(cartItemId));
   };
 
-  if (!cartItems || cartItems.length === 0) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-12 px-4">
-        <div className="max-w-2xl mx-auto text-center py-20">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Your cart is empty
-          </h2>
-          <p className="text-gray-500 mb-8">
-            Looks like you haven't added anything to your cart yet.
-          </p>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="bg-orange-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all"
-          >
-            Continue Shopping →
-          </button>
-        </div>
-      </div>
-    );
-  }
+ 
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+   <div>
+    <Navbar/>
+     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <div className="flex items-center justify-between">
@@ -71,7 +50,6 @@ const Cart = () => {
         </div>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
-          {/* Cart Items */}
           <div className="lg:col-span-8 space-y-6 mb-8">
             {cartItems.map((item) => (
               <div
@@ -82,7 +60,6 @@ const Cart = () => {
                   <div className="flex-shrink-0">
                     <img
                       src={item.images}
-                      alt={item.title}
                       className="w-24 h-24 object-cover rounded-xl"
                     />
                   </div>
@@ -147,7 +124,6 @@ const Cart = () => {
             ))}
           </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-4">
             <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm sticky top-8">
               <h2 className="text-xl font-bold text-gray-900 mb-6">
@@ -158,7 +134,7 @@ const Cart = () => {
                 <div className="flex justify-between text-lg">
                   <span>Total Items:</span>
                   <span>
-                    {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+                    {cartItems.reduce((sum, item) => sum + item.quantity,0)}
                   </span>
                 </div>
                 <div className="flex justify-between text-lg">
@@ -175,7 +151,6 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* ✅ Checkout navigation */}
               <button
                 onClick={() => navigate("/checkout")}
                 className="w-full bg-orange-500 border border-orange-500 text-white py-4 px-6 rounded-xl text-lg font-bold hover:bg-orange-600 hover:border-orange-600 focus:outline-none focus:ring-4 focus:ring-orange-200 transition-all shadow-lg hover:shadow-xl mb-4"
@@ -187,6 +162,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
+   </div>
   );
 };
 

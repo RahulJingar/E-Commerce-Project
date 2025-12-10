@@ -6,6 +6,7 @@ import {
   selectCurrentProduct,
 } from "../features/productsSlice";
 import { addToCart } from "../features/cartSlice";
+import Navbar from "./Navbar";
 
 const ItemDetail = () => {
   const dispatch = useDispatch();
@@ -33,20 +34,20 @@ const ItemDetail = () => {
     productName: product.name,
   };
 
-  // ✅ Add to Cart (sirf add + alert + badge update)
   const handleAddToCart = () => {
     dispatch(addToCart(commonPayload));
     alert("Item added to cart!");
   };
 
-  // ✅ Buy Now (add + cart page open)
   const handleBuyNow = () => {
     dispatch(addToCart(commonPayload));
     navigate("/cart");
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+  <div>
+    <Navbar/>
+      <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 bg-white border-b">
         <nav className="flex items-center space-x-2 text-sm text-gray-500">
           <a href="/dashboard" className="hover:text-orange-500 font-medium">
@@ -198,6 +199,7 @@ const ItemDetail = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

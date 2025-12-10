@@ -3,32 +3,18 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectOrders } from "../features/ordersSlice";
+import Navbar from "./Navbar";
 
 const Orders = () => {
   const navigate = useNavigate();
   const orders = useSelector(selectOrders);
 
-  if (!orders.length) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white shadow-md rounded-xl p-8 text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-3">No orders yet</h2>
-          <p className="text-gray-500 mb-4">
-            Place your first order to see it here.
-          </p>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="bg-orange-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-orange-600 transition-all"
-          >
-            Start Shopping →
-          </button>
-        </div>
-      </div>
-    );
-  }
+
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+ <div>
+  <Navbar/>
+     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
@@ -100,6 +86,7 @@ const Orders = () => {
         </div>
       </div>
     </div>
+ </div>
   );
 };
 
