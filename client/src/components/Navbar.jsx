@@ -10,14 +10,17 @@ const Navbar = () => {
   const cartCount = useSelector(selectCartItemCount);
   const orders = useSelector(selectOrders);
 
-  // total orders & last order status (optional display)
   const totalOrders = orders.length;
   const lastOrderStatus = totalOrders ? orders[totalOrders - 1].status : null;
 
+  const logoutHandler=(e)=>{
+    e.preventDefault();
+    localStorage.removeItem("loggedInUser")
+    navigate('/')
+  }
   return (
     <header className="w-full bg-white border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
         <div
           className="text-2xl font-bold text-orange-500 cursor-pointer"
           onClick={() => navigate("/dashboard")}
@@ -26,7 +29,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          {/* Orders button */}
           <button
             onClick={() => navigate("/orders")}
             className="relative flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all text-sm"
@@ -39,7 +41,6 @@ const Navbar = () => {
             )}
           </button>
 
-          {/* Cart button */}
           <button
             onClick={() => navigate("/cart")}
             className="relative flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all"
@@ -52,6 +53,9 @@ const Navbar = () => {
                 {cartCount}
               </span>
             )}
+          </button>
+          <button onClick={logoutHandler}>
+            Logout
           </button>
         </div>
       </div>

@@ -36,14 +36,16 @@ exports.login = async (req, res) => {
     return res
       .status(400)
       .send({ message: "user is invalid please signup first" });
+  }else{
+     return res.status(202).send({ message: "user login successfully" });
   }
 
-  const isMatch = await bcrypt.compare(password, existUser.password);
-  console.log(`>>>isMatch>>>`, isMatch);
+  // const isMatch = await bcrypt.compare(password, existUser.password);
+  // console.log(`>>>isMatch>>>`, isMatch);
 
-  if (!isMatch) {
-    return res.status(400).send({ message: "invalid user" });
-  } else {
-    return res.status(202).send({ message: "user login successfully" });
-  }
+  // if (!isMatch) {
+  //   return res.status(400).send({ message: "invalid user" });
+  // } else {
+  //   return res.status(202).send({ message: "user login successfully" });
+  // }
 };

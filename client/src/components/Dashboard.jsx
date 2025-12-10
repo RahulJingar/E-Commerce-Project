@@ -34,10 +34,7 @@ const Dashboard = () => {
     navigate(`/dashboard/${index}`);
   };
 
-  const logoutHandler = (e) => {
-    e.preventDefault();
-    navigate("/");
-  };
+
 
   return (
     <div className="p-8 max-w-7xl mx-auto bg-gray-50 min-h-screen">
@@ -45,12 +42,7 @@ const Dashboard = () => {
         <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
           Products
         </h1>
-        <button
-          onClick={logoutHandler}
-          className="px-6 py-3 bg-red-500 text-white rounded-xl shadow-lg hover:bg-red-600 transition-all duration-200 font-medium"
-        >
-          Logout
-        </button>
+      
       </div>
 
       <div className="mb-8">
